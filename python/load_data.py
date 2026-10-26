@@ -15,6 +15,14 @@ trans = pd.read_csv("data/trans.csv", sep=";", low_memory=False)
 trans["date"] = pd.to_datetime(trans["date"].astype(str), format="%y%m%d")
 trans.to_sql("trans", engine, if_exists="replace", index=False, chunksize=50000)
 
+DATE_COLS = {
+    "account": ["date"],
+    "loan": ["date"],
+    "card": ["issued"],
+}
+
 for nume in ["account", "client", "disp", "loan", "card", "order", "district"]:
-    df = pd.read_csv(DATA / f"{nume}.csv")
+    df = pd.read_csv(DATA / f"{nume}.csv", sep=";")
+    for col in DATE_COLS.get(nume, []):
+        df[col] = pd.to_datetime(df[col].astype(str).str[:6], format="%y%m%d")
     df.to_sql(nume, engine, if_exists="replace", index=False)
