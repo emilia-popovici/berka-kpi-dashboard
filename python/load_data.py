@@ -4,7 +4,9 @@ from dotenv import load_dotenv
 from pathlib import Path
 from sqlalchemy import create_engine
 
+
 ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data"
 load_dotenv(ROOT / ".env")
 
 engine = create_engine(os.environ["DB_URL"])
@@ -14,5 +16,5 @@ trans["date"] = pd.to_datetime(trans["date"].astype(str), format="%y%m%d")
 trans.to_sql("trans", engine, if_exists="replace", index=False, chunksize=50000)
 
 for nume in ["account", "client", "disp", "loan", "card", "order", "district"]:
-    df = pd.read_csv(DATA / f"{nume}.asc", sep=";")
+    df = pd.read_csv(DATA / f"{nume}.csv")
     df.to_sql(nume, engine, if_exists="replace", index=False)
