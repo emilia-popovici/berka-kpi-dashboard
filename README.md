@@ -9,7 +9,7 @@ Proiect de portofoliu: indicatori de tranzacții și credite pe un set de date b
 ![Dashboard](docs/dashboard.png)
 
 ## Date
-Berka (Czech Financial Dataset), de pe Kaggle. Fișierele .csv trebuie să fie în `data/`.
+Berka (Czech Financial Dataset), de pe Kaggle. Fișierele .csv sunt incluse în `data/` (`trans.csv` are ~66 MB).
 
 ## Conținut
 - `docs/cerinte.md`: întrebări de business, definiții, criterii de acceptanță, validare
